@@ -19,6 +19,14 @@ class Receipt < ApplicationRecord
     recorded_on.present?
   end
 
+  def image_file?
+    file.file&.extension&.match?(/\A(jpg|jpeg|png|heic|webp)\z/i)
+  end
+
+  def pdf_file?
+    file.file&.extension&.match?(/\Apdf\z/i)
+  end
+
   def grouped_by_month(receipts)
     receipts.group_by { |r| r.effective_date.beginning_of_month }
   end

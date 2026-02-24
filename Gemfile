@@ -50,6 +50,9 @@ gem "omniauth-rails_csrf_protection"
 # Pagination
 gem "kaminari"
 
+# Slack API client for bot integration
+gem "slack-ruby-client"
+
 group :development, :test do
   gem "dotenv"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -78,6 +81,7 @@ group :test do
   gem "selenium-webdriver"
 
   gem "shoulda-matchers", "~> 6.4"
+  gem "webmock"
 end
 
 group :development, :test do

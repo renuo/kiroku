@@ -11,5 +11,9 @@ FactoryBot.define do
     trait :admin do
       admin { true }
     end
+
+    trait :with_slack do
+      sequence(:slack_uid) { |n| "U_SLACK_#{n}" }
+    end
   end
 end

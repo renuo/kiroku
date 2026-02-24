@@ -91,6 +91,15 @@ en:
         code: "Booking code"
         record: "Record"
         unrecord: "Unrecord"
+  slack:
+    receipts:
+      saved: "Receipt saved: %{filename}%{date}"
+      user_created: "Welcome to Kiroku! Your account has been created."
+      invalid_file_type: "Invalid file type. Allowed: %{allowed}"
+      file_too_large: "File is too large. Maximum size is 10MB."
+      save_failed: "Could not save receipt: %{errors}"
+      missing_email: "Could not retrieve your email from Slack. Please ensure your email is visible in your Slack profile."
+      unexpected_error: "Something went wrong processing your receipt. Please try again."
   activerecord:
     errors:
       models:

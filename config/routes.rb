@@ -3,13 +3,20 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Slack Events API webhook
+  post "slack/events", to: "slack/events#create"
+
   # Authentication
   get "auth/:provider/callback", to: "sessions#create"
   get "auth/failure", to: "sessions#failure"
   delete "sign_out", to: "sessions#destroy", as: :sign_out
 
   # Receipts
-  resources :receipts, only: %i[index new create edit update destroy]
+  resources :receipts, only: %i[index new create edit update destroy] do
+    resource :file, only: :show, controller: "receipt_files" do
+      get :preview
+    end
+  end
 
   # Admin
   namespace :admin do

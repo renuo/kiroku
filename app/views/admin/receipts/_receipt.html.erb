@@ -1,9 +1,12 @@
 <%= turbo_frame_tag dom_id(receipt, :admin) do %>
-  <tr>
+  <tr class="receipt-row"
+      data-controller="modal"
+      data-action="click->modal#open"
+      data-modal-dialog-id-param="receipt_dialog_<%= receipt.id %>">
     <td>
       <% if receipt.file.present? %>
-        <% if receipt.file.file&.extension&.match?(/\A(jpg|jpeg|png|heic|webp)\z/i) %>
-          <%= image_tag receipt.file.url, alt: "Receipt", style: "border-radius: 4px; max-width: 60px; max-height: 60px;" %>
+        <% if receipt.image_file? %>
+          <%= image_tag receipt_file_path(receipt), alt: "Receipt", style: "border-radius: 4px; max-width: 60px; max-height: 60px;" %>
         <% else %>
           <%= File.basename(receipt.file.path) %>
         <% end %>
@@ -19,7 +22,7 @@
         <span class="tag is-warning"><%= t("unrecorded", scope: "receipts.receipt") %></span>
       <% end %>
     </td>
-    <td>
+    <td data-no-modal>
       <div class="buttons are-small">
         <% if receipt.recorded? %>
           <%= button_to t("unrecord", scope: "admin.receipts.form"),

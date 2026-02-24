@@ -27,4 +27,10 @@
   </div>
 
   <%= paginate @receipts %>
+
+  <% @grouped_receipts.each_value do |receipts| %>
+    <% receipts.each do |receipt| %>
+      <%= render "receipts/receipt_modal", receipt: receipt %>
+    <% end %>
+  <% end %>
 <% end %>

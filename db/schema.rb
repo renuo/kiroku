@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_23_200000) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_24_112903) do
   create_table "receipts", force: :cascade do |t|
     t.string "code"
     t.datetime "created_at", null: false
@@ -30,11 +30,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_23_200000) do
     t.string "avatar_url"
     t.datetime "created_at", null: false
     t.string "email", null: false
-    t.string "google_uid", null: false
+    t.string "google_uid"
     t.string "name", null: false
+    t.string "slack_uid"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["google_uid"], name: "index_users_on_google_uid", unique: true
+    t.index ["slack_uid"], name: "index_users_on_slack_uid", unique: true
   end
 
   add_foreign_key "receipts", "users"

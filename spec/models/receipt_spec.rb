@@ -65,6 +65,32 @@ RSpec.describe Receipt do
     end
   end
 
+  describe "#image_file?" do
+    it "returns true for image extensions" do
+      receipt = build(:receipt)
+      expect(receipt).to be_image_file
+    end
+
+    it "returns false for pdf files" do
+      receipt = build(:receipt)
+      receipt.file = uploaded_receipt_file(content_type: "application/pdf", filename: "test_receipt.pdf")
+      expect(receipt).not_to be_image_file
+    end
+  end
+
+  describe "#pdf_file?" do
+    it "returns true for pdf files" do
+      receipt = build(:receipt)
+      receipt.file = uploaded_receipt_file(content_type: "application/pdf", filename: "test_receipt.pdf")
+      expect(receipt).to be_pdf_file
+    end
+
+    it "returns false for image files" do
+      receipt = build(:receipt)
+      expect(receipt).not_to be_pdf_file
+    end
+  end
+
   describe "scopes" do
     before do
       create(:receipt, :recorded)

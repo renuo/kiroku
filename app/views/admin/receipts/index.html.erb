@@ -49,4 +49,10 @@
   <% end %>
 
   <%= paginate @receipts %>
+
+  <% @grouped_receipts.each_value do |receipts| %>
+    <% receipts.each do |receipt| %>
+      <%= render "receipts/receipt_modal", receipt: receipt, admin: true %>
+    <% end %>
+  <% end %>
 <% end %>

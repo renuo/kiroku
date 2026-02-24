@@ -9,8 +9,8 @@ RSpec.describe User do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_uniqueness_of(:email) }
     it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:google_uid) }
-    it { is_expected.to validate_uniqueness_of(:google_uid) }
+    it { is_expected.to validate_uniqueness_of(:google_uid).allow_nil }
+    it { is_expected.to validate_uniqueness_of(:slack_uid).allow_nil }
   end
 
   describe "associations" do
@@ -51,6 +51,26 @@ RSpec.describe User do
 
       expect { described_class.from_omniauth(auth) }.not_to change(described_class, :count)
       expect(described_class.from_omniauth(auth).id).to eq(existing.id)
+    end
+  end
+
+  describe ".find_or_create_from_slack" do
+    it "links slack_uid to an existing user by email" do
+      user = create(:user, email: "test@example.com")
+      result = described_class.find_or_create_from_slack(slack_uid: "U12345", email: "test@example.com", name: "Test")
+      expect(result).to eq(user)
+      expect(user.reload.slack_uid).to eq("U12345")
+    end
+
+    it "creates a new user when email is not found" do
+      result = described_class.find_or_create_from_slack(
+        slack_uid: "U12345", email: "new@example.com", name: "New Slack User"
+      )
+      expect(result).to be_persisted
+      expect(result.email).to eq("new@example.com")
+      expect(result.name).to eq("New Slack User")
+      expect(result.slack_uid).to eq("U12345")
+      expect(result.google_uid).to be_nil
     end
   end
 

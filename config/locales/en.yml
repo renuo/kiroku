@@ -1,0 +1,102 @@
+en:
+  shared:
+    navbar:
+      brand: "Kiroku"
+      my_receipts: "My Receipts"
+      admin: "Admin"
+      sign_in: "Sign in with Google"
+      sign_out: "Sign Out"
+  sessions:
+    create:
+      success: "Signed in successfully."
+    destroy:
+      success: "Signed out successfully."
+    failure:
+      error: "Authentication failed. Please try again."
+  home:
+    index:
+      title: "Kiroku - Receipt Management"
+      hero_title: "Manage Your Receipts"
+      hero_subtitle: "Upload, track, and organize your receipts with ease."
+  receipts:
+    new:
+      title: "Upload a Receipt"
+    index:
+      title: "My Receipts"
+      no_receipts: "No receipts yet. Upload your first receipt!"
+      file: "File"
+      date: "Date"
+      status: "Status"
+      actions: "Actions"
+    create:
+      success: "Receipt uploaded successfully."
+      error: "Failed to upload receipt."
+    update:
+      success: "Receipt updated successfully."
+      error: "Failed to update receipt."
+    destroy:
+      success: "Receipt deleted successfully."
+      cannot_delete_recorded: "Cannot delete a recorded receipt."
+    edit:
+      title: "Edit Receipt"
+    form:
+      spent_on: "Date spent"
+      file: "Receipt file"
+      submit: "Save"
+    upload_form:
+      file: "Choose a file or drag it here"
+      spent_on: "Date spent (optional)"
+      submit: "Upload Receipt"
+    receipt:
+      recorded: "Recorded"
+      unrecorded: "Pending"
+      code: "Code: %{code}"
+      edit: "Edit"
+      delete: "Delete"
+      confirm_delete: "Are you sure you want to delete this receipt?"
+  admin:
+    receipts:
+      index:
+        title: "All Receipts"
+        filter_by_user: "Filter by user"
+        all_users: "All Users"
+        no_receipts: "No receipts found."
+        file: "File"
+        user: "User"
+        date: "Date"
+        status: "Status"
+        actions: "Actions"
+      new:
+        title: "Upload Receipt"
+      edit:
+        title: "Edit Receipt"
+      create:
+        success: "Receipt uploaded successfully."
+        error: "Failed to upload receipt."
+      update:
+        success: "Receipt updated successfully."
+        error: "Failed to update receipt."
+      destroy:
+        success: "Receipt deleted successfully."
+      record:
+        success: "Receipt marked as recorded."
+        error: "Code is required to record a receipt."
+      unrecord:
+        success: "Receipt marked as unrecorded."
+      form:
+        user: "User"
+        spent_on: "Date spent"
+        file: "Receipt file"
+        submit: "Save"
+        code: "Booking code"
+        record: "Record"
+        unrecord: "Unrecord"
+  activerecord:
+    errors:
+      models:
+        receipt:
+          attributes:
+            file:
+              blank: "must be attached"
+              content_type_invalid: "must be a JPG, PNG, HEIC, WebP, or PDF file"
+              file_size_out_of_range: "must be less than 10MB"

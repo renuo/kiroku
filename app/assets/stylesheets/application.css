@@ -1,0 +1,48 @@
+/*
+ * Custom styles for Kiroku receipt management app.
+ * Bulma is loaded via CDN in the layout.
+ */
+
+.dropzone {
+  border: 2px dashed #dbdbdb;
+  border-radius: 6px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+
+  &.is-dragover {
+    border-color: #3273dc;
+    background-color: #f5f8ff;
+  }
+
+  .file-preview {
+    margin-top: 1rem;
+  }
+}
+
+.receipt-card {
+  .card-image img {
+    object-fit: cover;
+    max-height: 200px;
+  }
+}
+
+/* Flash notification animations */
+.flash-animate {
+  animation: flashSlideIn 0.4s ease-out;
+}
+
+.flash-dismiss {
+  animation: flashSlideOut 0.3s ease-in forwards;
+}
+
+@keyframes flashSlideIn {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes flashSlideOut {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}

@@ -1,0 +1,37 @@
+<h1 class="title"><%= t("title", scope: "admin.receipts.edit") %></h1>
+
+<div class="box">
+  <%= form_with model: [:admin, @receipt] do |f| %>
+    <div class="field">
+      <%= f.label :user_id, t("user", scope: "admin.receipts.form"), class: "label" %>
+      <div class="control">
+        <div class="select is-fullwidth">
+          <%= f.collection_select :user_id, @users, :id, :name, {}, { class: "select", required: true } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :file, t("file", scope: "admin.receipts.form"), class: "label" %>
+      <div class="control">
+        <%= f.file_field :file, accept: "image/jpeg,image/png,image/heic,image/webp,application/pdf", class: "input" %>
+      </div>
+      <% if @receipt.file.present? %>
+        <p class="help"><%= File.basename(@receipt.file.path) %></p>
+      <% end %>
+    </div>
+
+    <div class="field">
+      <%= f.label :spent_on, t("spent_on", scope: "admin.receipts.form"), class: "label" %>
+      <div class="control">
+        <%= f.date_field :spent_on, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.submit t("submit", scope: "admin.receipts.form"), class: "button is-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

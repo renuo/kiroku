@@ -1,0 +1,15 @@
+<% flash.each do |type, message| %>
+  <% bulma_class, icon = case type.to_s
+                         when "notice", "success" then ["is-success", "fa-circle-check"]
+                         when "alert", "error" then ["is-danger", "fa-circle-exclamation"]
+                         when "warning" then ["is-warning", "fa-triangle-exclamation"]
+                         else ["is-info", "fa-circle-info"]
+                         end %>
+  <div class="notification <%= bulma_class %> is-light flash-animate" data-controller="notification">
+    <button class="delete" data-action="click->notification#close"></button>
+    <span class="icon-text">
+      <span class="icon"><i class="fas <%= icon %>"></i></span>
+      <span><%= message %></span>
+    </span>
+  </div>
+<% end %>

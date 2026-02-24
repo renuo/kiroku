@@ -1,0 +1,26 @@
+<%= form_with model: receipt, url: receipts_path, class: "box", data: { controller: "dropzone" } do |f| %>
+  <div class="dropzone" data-dropzone-target="zone" data-action="dragover->dropzone#dragover dragleave->dropzone#dragleave drop->dropzone#drop click->dropzone#click">
+    <div data-dropzone-target="prompt">
+      <span class="icon is-large has-text-grey-light">
+        <i class="fas fa-cloud-arrow-up fa-2x"></i>
+      </span>
+      <p class="has-text-grey mt-2"><%= t("file", scope: "receipts.upload_form") %></p>
+    </div>
+    <div data-dropzone-target="preview" class="file-preview" style="display:none;"></div>
+    <%= f.file_field :file, accept: "image/jpeg,image/png,image/heic,image/webp,application/pdf",
+        required: true, data: { dropzone_target: "input", action: "change->dropzone#preview" }, style: "display:none" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :spent_on, t("spent_on", scope: "receipts.upload_form"), class: "label" %>
+    <div class="control">
+      <%= f.date_field :spent_on, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= f.submit t("submit", scope: "receipts.upload_form"), class: "button is-primary" %>
+    </div>
+  </div>
+<% end %>

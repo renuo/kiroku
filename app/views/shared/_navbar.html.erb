@@ -1,0 +1,42 @@
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%= link_to root_path, class: "navbar-item" do %>
+      <strong><%= t("brand", scope: "shared.navbar") %></strong>
+    <% end %>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="main-navbar"
+       data-controller="navbar" data-action="click->navbar#toggle">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="main-navbar" class="navbar-menu">
+    <div class="navbar-start">
+      <% if user_signed_in? %>
+        <%= link_to t("my_receipts", scope: "shared.navbar"), receipts_path, class: "navbar-item" %>
+        <% if current_user.admin? %>
+          <%= link_to t("admin", scope: "shared.navbar"), admin_receipts_path, class: "navbar-item" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <% if user_signed_in? %>
+          <div class="buttons">
+            <span class="navbar-item has-text-light"><%= current_user.name %></span>
+            <%= button_to t("sign_out", scope: "shared.navbar"), sign_out_path, method: :delete, class: "button is-light is-small" %>
+          </div>
+        <% else %>
+          <div class="buttons">
+            <%= button_to t("sign_in", scope: "shared.navbar"), "/auth/google_oauth2", method: :post, class: "button is-light",
+                data: { turbo: false } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,30 @@
+<h1 class="title"><%= t("title", scope: "receipts.index") %></h1>
+
+<% if @grouped_receipts.empty? %>
+  <div class="notification is-info is-light">
+    <%= t("no_receipts", scope: "receipts.index") %>
+  </div>
+<% else %>
+  <div id="receipts">
+    <% @grouped_receipts.each do |month, receipts| %>
+      <h2 class="subtitle is-4 mt-5"><%= l(month, format: "%B %Y") %></h2>
+      <table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
+          <tr>
+            <th><%= t("file", scope: "receipts.index") %></th>
+            <th><%= t("date", scope: "receipts.index") %></th>
+            <th><%= t("status", scope: "receipts.index") %></th>
+            <th><%= t("actions", scope: "receipts.index") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% receipts.each do |receipt| %>
+            <%= render "receipts/receipt", receipt: receipt %>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+
+  <%= paginate @receipts %>
+<% end %>

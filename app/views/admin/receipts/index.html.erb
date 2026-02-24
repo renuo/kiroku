@@ -1,0 +1,52 @@
+<h1 class="title"><%= t("title", scope: "admin.receipts.index") %></h1>
+
+<div class="level">
+  <div class="level-left">
+    <%= form_with url: admin_receipts_path, method: :get, local: true, class: "field has-addons" do %>
+      <div class="control">
+        <div class="select">
+          <select name="user_id" onchange="this.form.requestSubmit()">
+            <option value=""><%= t("all_users", scope: "admin.receipts.index") %></option>
+            <% @users.each do |user| %>
+              <option value="<%= user.id %>" <%= "selected" if params[:user_id].to_s == user.id.to_s %>>
+                <%= user.name %>
+              </option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="level-right">
+    <%= link_to t("title", scope: "admin.receipts.new"), new_admin_receipt_path, class: "button is-primary" %>
+  </div>
+</div>
+
+<% if @grouped_receipts.empty? %>
+  <div class="notification is-info is-light">
+    <%= t("no_receipts", scope: "admin.receipts.index") %>
+  </div>
+<% else %>
+  <% @grouped_receipts.each do |month, receipts| %>
+    <h2 class="subtitle is-4 mt-5"><%= l(month, format: "%B %Y") %></h2>
+    <table class="table is-fullwidth is-striped is-hoverable">
+      <thead>
+        <tr>
+          <th><%= t("file", scope: "admin.receipts.index") %></th>
+          <th><%= t("user", scope: "admin.receipts.index") %></th>
+          <th><%= t("date", scope: "admin.receipts.index") %></th>
+          <th><%= t("status", scope: "admin.receipts.index") %></th>
+          <th><%= t("actions", scope: "admin.receipts.index") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% receipts.each do |receipt| %>
+          <%= render "admin/receipts/receipt", receipt: receipt %>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <%= paginate @receipts %>
+<% end %>

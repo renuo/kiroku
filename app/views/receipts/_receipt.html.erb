@@ -1,0 +1,29 @@
+<tr>
+  <td>
+    <% if receipt.file.present? %>
+      <% if receipt.file.mime_type&.start_with?("image/") %>
+        <%= image_tag receipt.file_url, alt: "Receipt", style: "border-radius: 4px; max-width: 60px; max-height: 60px;" %>
+      <% else %>
+        <span class="icon"><i class="fas fa-file-pdf"></i></span>
+        <%= receipt.file.original_filename %>
+      <% end %>
+    <% end %>
+  </td>
+  <td><%= receipt.effective_date.strftime("%B %d, %Y") %></td>
+  <td>
+    <% if receipt.recorded? %>
+      <span class="tag is-success"><%= t("recorded", scope: "receipts.receipt") %></span>
+      <span class="tag is-light"><%= t("code", scope: "receipts.receipt", code: receipt.code) %></span>
+    <% else %>
+      <span class="tag is-warning"><%= t("unrecorded", scope: "receipts.receipt") %></span>
+    <% end %>
+  </td>
+  <td>
+    <% unless receipt.recorded? %>
+      <%= link_to t("edit", scope: "receipts.receipt"), edit_receipt_path(receipt), class: "button is-small" %>
+      <%= button_to t("delete", scope: "receipts.receipt"), receipt_path(receipt), method: :delete,
+          form: { data: { turbo_confirm: t("confirm_delete", scope: "receipts.receipt") } },
+          class: "button is-small is-danger" %>
+    <% end %>
+  </td>
+</tr>

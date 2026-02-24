@@ -1,0 +1,47 @@
+<%= turbo_frame_tag dom_id(receipt, :admin) do %>
+  <tr>
+    <td>
+      <% if receipt.file.present? %>
+        <% if receipt.file.content_type&.start_with?("image/") %>
+          <%= image_tag receipt.file.url, alt: "Receipt", style: "border-radius: 4px; max-width: 60px; max-height: 60px;" %>
+        <% else %>
+          <%= File.basename(receipt.file.path) %>
+        <% end %>
+      <% end %>
+    </td>
+    <td><%= receipt.user.name %></td>
+    <td><%= receipt.effective_date.strftime("%B %d, %Y") %></td>
+    <td>
+      <% if receipt.recorded? %>
+        <span class="tag is-success"><%= t("recorded", scope: "receipts.receipt") %></span>
+        <span class="tag is-light"><%= t("code", scope: "receipts.receipt", code: receipt.code) %></span>
+      <% else %>
+        <span class="tag is-warning"><%= t("unrecorded", scope: "receipts.receipt") %></span>
+      <% end %>
+    </td>
+    <td>
+      <div class="buttons are-small">
+        <% if receipt.recorded? %>
+          <%= button_to t("unrecord", scope: "admin.receipts.form"),
+              unrecord_admin_receipt_path(receipt), method: :patch,
+              class: "button is-small is-warning" %>
+        <% else %>
+          <%= form_with url: record_admin_receipt_path(receipt), method: :patch do |f| %>
+            <div class="field has-addons">
+              <div class="control">
+                <%= f.text_field :code, placeholder: t("code", scope: "admin.receipts.form"), required: true, class: "input is-small", name: "code" %>
+              </div>
+              <div class="control">
+                <%= f.submit t("record", scope: "admin.receipts.form"), class: "button is-small is-success" %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <%= link_to t("edit", scope: "receipts.receipt"), edit_admin_receipt_path(receipt), class: "button is-small" %>
+        <%= button_to t("delete", scope: "receipts.receipt"), admin_receipt_path(receipt), method: :delete,
+            form: { data: { turbo_confirm: t("confirm_delete", scope: "receipts.receipt") } },
+            class: "button is-small is-danger" %>
+      </div>
+    </td>
+  </tr>
+<% end %>

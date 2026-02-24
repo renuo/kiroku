@@ -14,6 +14,13 @@ RSpec.describe "Admin::Receipts" do
       expect(response).to have_http_status(:success)
     end
 
+    it "renders receipts when they exist" do
+      create(:receipt, user: regular_user)
+
+      get admin_receipts_path
+      expect(response).to have_http_status(:success)
+    end
+
     it "filters by user" do
       get admin_receipts_path(user_id: regular_user.id)
       expect(response).to have_http_status(:success)

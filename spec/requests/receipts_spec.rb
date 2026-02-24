@@ -13,6 +13,13 @@ RSpec.describe "Receipts" do
       expect(response).to have_http_status(:success)
     end
 
+    it "renders receipts when they exist" do
+      create(:receipt, user: user)
+
+      get receipts_path
+      expect(response).to have_http_status(:success)
+    end
+
     it "requires authentication" do
       reset!
       get receipts_path

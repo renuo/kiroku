@@ -2,7 +2,7 @@
   <tr>
     <td>
       <% if receipt.file.present? %>
-        <% if receipt.file.content_type&.start_with?("image/") %>
+        <% if receipt.file.file&.extension&.match?(/\A(jpg|jpeg|png|heic|webp)\z/i) %>
           <%= image_tag receipt.file.url, alt: "Receipt", style: "border-radius: 4px; max-width: 60px; max-height: 60px;" %>
         <% else %>
           <%= File.basename(receipt.file.path) %>

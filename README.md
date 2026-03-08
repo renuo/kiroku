@@ -72,3 +72,7 @@ For local development, you can also set `SLACK_BOT_TOKEN` and `SLACK_SIGNING_SEC
 
 Send a file (JPG, PNG, HEIC, WebP, or PDF, max 10MB) as a DM to the bot. Optionally include a date in the message (e.g.
 `2026-01-15` or `15.01.2026`) to set the `spent_on` date. The bot will reply confirming the receipt was saved.
+
+## Copyright
+
+Copyright (c) 2026 [Renuo AG](https://www.renuo.ch). All rights reserved.

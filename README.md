@@ -75,4 +75,4 @@ Send a file (JPG, PNG, HEIC, WebP, or PDF, max 10MB) as a DM to the bot. Optiona
 
 ## Copyright
 
-Copyright (c) 2026 [Renuo AG](https://www.renuo.ch). All rights reserved.
+Copyright (c) [Renuo AG](https://www.renuo.ch). All rights reserved.
